@@ -1,0 +1,535 @@
+<meta name="robots" content="noindex, nofollow">
+<title>Casa Jable · El sistema</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Work+Sans:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#F5F3EF; --surface:#FFFFFF; --sand:#E6DDCF;
+  --line:rgba(47,47,45,.14); --ink:#2F2F2D; --ink-soft:#5B5852;
+  --accent:#5F748A; --deep:#3F4A46;
+  --nueva:#76624E; --azul:#357D8A; --roja:#A53D4F; --anne:#C45E3F;
+  --ok:#4F7A5E; --wait:#B07C3F;
+  --shadow:0 18px 50px rgba(28,38,30,.13);
+  --chip:rgba(95,116,138,.10);
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --ground:#22262A; --surface:#2A2F33; --sand:#333A3F;
+  --line:rgba(237,233,226,.16); --ink:#EDE9E2; --ink-soft:#B3ADA3;
+  --accent:#96AEC7; --deep:#CFD8D3;
+  --nueva:#BFA98D; --azul:#6FBACA; --roja:#DE7F92; --anne:#E9A184;
+  --ok:#7FB994; --wait:#D9AC72;
+  --shadow:0 18px 50px rgba(0,0,0,.42);
+  --chip:rgba(150,174,199,.14);
+}}
+:root[data-theme="dark"]{
+  --ground:#22262A; --surface:#2A2F33; --sand:#333A3F;
+  --line:rgba(237,233,226,.16); --ink:#EDE9E2; --ink-soft:#B3ADA3;
+  --accent:#96AEC7; --deep:#CFD8D3;
+  --nueva:#BFA98D; --azul:#6FBACA; --roja:#DE7F92; --anne:#E9A184;
+  --ok:#7FB994; --wait:#D9AC72;
+  --shadow:0 18px 50px rgba(0,0,0,.42);
+  --chip:rgba(150,174,199,.14);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Work Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:17px;line-height:1.68;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"EB Garamond","Iowan Old Style",Georgia,serif;
+  font-weight:400;line-height:1.14;letter-spacing:.4px;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--accent)}
+strong{font-weight:500}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.col{max-width:68ch}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.num{font-variant-numeric:tabular-nums}
+
+.hero{padding:96px 0 70px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(42px,6vw,74px);margin:18px 0 24px}
+.hero .lede{font-size:clamp(18px,2vw,21px);color:var(--ink-soft);max-width:58ch}
+.ref{margin-top:34px;font-size:13.5px;color:var(--ink-soft);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ref b{font-weight:500;color:var(--ink)}
+.sep{opacity:.4}
+
+section{padding:74px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:34px}
+.sec-head h2{font-size:clamp(29px,3.4vw,40px)}
+.stack{display:flex;flex-direction:column;gap:18px}
+
+figure{margin:0;display:flex;flex-direction:column;gap:11px}
+figcaption{font-size:14px;color:var(--ink-soft);max-width:64ch}
+.shot{width:100%;height:auto;display:block;border:1px solid var(--line);
+  border-radius:3px;box-shadow:var(--shadow);background:var(--surface)}
+.figs{display:grid;gap:34px;margin-top:32px}
+@media(min-width:900px){.figs.two{grid-template-columns:1fr 1fr}}
+.diagram{width:100%;height:auto;max-width:100%;color:var(--ink)}
+.scroller{overflow-x:auto}
+
+.houses{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:32px}
+@media(min-width:760px){.houses{grid-template-columns:repeat(4,1fr)}}
+.house{background:var(--ground);padding:20px;display:flex;flex-direction:column;gap:6px}
+.house .swatch{width:26px;height:3px;border-radius:2px}
+.house .name{font-family:"EB Garamond",Georgia,serif;font-size:21px}
+.house .note{font-size:13.5px;color:var(--ink-soft)}
+
+/* numbered guest journey — a real sequence */
+.flow{margin-top:32px;counter-reset:s}
+.step{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--line)}
+.step:last-child{border-bottom:1px solid var(--line)}
+.step .n{counter-increment:s;font-variant-numeric:tabular-nums;font-size:12.5px;
+  letter-spacing:.1em;color:var(--accent);padding-top:5px}
+.step .n::before{content:counter(s,decimal-leading-zero)}
+.step h3{font-size:19px;margin-bottom:4px}
+.step p{color:var(--ink-soft);font-size:15px;max-width:62ch}
+
+/* price lines */
+.lines{margin-top:30px;border-top:1px solid var(--line)}
+.line{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;
+  padding:22px 0;border-bottom:1px solid var(--line)}
+.line .what h3{font-size:20px;margin-bottom:6px}
+.line .what p{font-size:15px;color:var(--ink-soft);max-width:60ch}
+.line .amt{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.line .amt .big{font-family:"EB Garamond",Georgia,serif;font-size:27px;display:block}
+.line .amt .sub{font-size:13px;color:var(--ink-soft);display:block;margin-top:2px}
+.total{display:grid;grid-template-columns:1fr auto;gap:24px;padding:24px 0;
+  border-bottom:2px solid var(--ink);align-items:baseline}
+.total .lab{font-family:"EB Garamond",Georgia,serif;font-size:23px}
+.total .val{font-family:"EB Garamond",Georgia,serif;font-size:32px;font-variant-numeric:tabular-nums}
+.subtotals{display:flex;flex-direction:column;gap:7px;margin-top:16px;font-size:14.5px;color:var(--ink-soft)}
+.subtotals div{display:grid;grid-template-columns:1fr auto;gap:24px;font-variant-numeric:tabular-nums}
+
+/* included / not included */
+.two-col{display:grid;gap:34px;margin-top:30px}
+@media(min-width:860px){.two-col{grid-template-columns:1fr 1fr}}
+.card{background:var(--sand);padding:30px 26px;border-radius:3px;display:flex;flex-direction:column;gap:14px}
+.card.plain{background:none;border:1px solid var(--line)}
+.card h3{font-size:22px}
+.ticks{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+.tick{display:grid;grid-template-columns:auto 1fr;gap:11px;font-size:15px;align-items:start}
+.tick .m{color:var(--ok);font-size:14px;line-height:1.6}
+.tick.no .m{color:var(--ink-soft)}
+.tick .d{display:block;color:var(--ink-soft);font-size:13.5px}
+
+/* options */
+.opts{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:30px}
+@media(min-width:820px){.opts{grid-template-columns:1fr 1fr}}
+.opt{background:var(--ground);padding:26px 24px;display:flex;flex-direction:column;gap:9px}
+.opt .tag{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.opt h3{font-size:21px}
+.opt p{font-size:14.5px;color:var(--ink-soft)}
+.opt .price{margin-top:auto;padding-top:12px;font-family:"EB Garamond",Georgia,serif;
+  font-size:25px;font-variant-numeric:tabular-nums}
+.opt .price span{font-family:"Work Sans",sans-serif;font-size:13px;color:var(--ink-soft);display:block}
+
+/* status */
+.status{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:28px}
+@media(min-width:700px){.status{grid-template-columns:1fr 1fr}}
+.row{background:var(--ground);padding:17px 19px;display:flex;gap:13px;align-items:flex-start}
+.dot{width:7px;height:7px;border-radius:50%;margin-top:9px;flex:0 0 7px}
+.dot.on{background:var(--ok)} .dot.wait{background:var(--wait)}
+.row .txt{font-size:15px}
+.row .txt span{display:block;color:var(--ink-soft);font-size:13.5px}
+
+.need{display:grid;gap:16px;margin-top:28px}
+@media(min-width:760px){.need{grid-template-columns:1fr 1fr 1fr}}
+.need .item{border-left:2px solid var(--accent);padding-left:16px}
+.need .item b{display:block;font-weight:500;font-size:15px}
+.need .item span{font-size:14px;color:var(--ink-soft)}
+
+.terms{display:grid;gap:18px;margin-top:28px}
+@media(min-width:760px){.terms{grid-template-columns:1fr 1fr}}
+.term b{display:block;font-weight:500;font-size:15.5px;margin-bottom:3px}
+.term span{font-size:14.5px;color:var(--ink-soft)}
+
+footer{padding:52px 0 88px;color:var(--ink-soft);font-size:14px}
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="col">
+    <div class="eyebrow">Casa Jable · Tenerife</div>
+    <h1>Las cuatro casas en un solo sistema</h1>
+    <p class="lede">
+      Airbnb, Booking.com y casajable.com trabajando sobre el mismo calendario.
+      Sin dobles reservas, y con reserva directa desde vuestra propia web.
+    </p>
+    <div class="ref">
+      <span>25/08/2026</span><span class="sep">·</span>
+      <span>Tenerife Resort Invest SL</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">Hoy</div><h2>Tres calendarios que no se hablan</h2></div>
+  <div class="col stack">
+    <p>
+      Ahora mismo cada canal lleva su propia cuenta. Si entra una reserva por
+      Airbnb, alguien tiene que acordarse de bloquear esa fecha en Booking.com y
+      en la web. Si no se hace a tiempo, dos huéspedes reservan la misma casa la
+      misma noche.
+    </p>
+    <p>
+      Ese trabajo manual se hace cuatro veces, una por casa. Y no se puede hacer
+      de noche ni en fin de semana, que es justo cuando entran las reservas.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">La propuesta</div><h2>Un único calendario en el centro</h2></div>
+  <div class="col stack">
+    <p>
+      Smoobu se coloca en medio. Cada canal le informa y él informa a los demás,
+      solo, en segundos. La web deja de tener su propio calendario y pasa a leer
+      del mismo sitio, así que lo que ve un huésped es lo que hay de verdad.
+    </p>
+  </div>
+
+  <div class="scroller">
+    <figure style="margin-top:34px">
+      <svg class="diagram" viewBox="0 0 900 372" role="img"
+           aria-label="Airbnb, Booking.com y la reserva directa sincronizan a través de Smoobu, que alimenta el calendario y el motor de reserva de casajable.com. El cobro directo se hace con Stripe.">
+        <defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><polygon points="0,0 10,5 0,10" fill="currentColor"/></marker></defs>
+
+        <rect x="10" y="26" width="196" height="62" rx="3" fill="#FFFFFF" stroke="currentColor" stroke-width="1" stroke-opacity=".28"/>
+        <image href="img/airbnb.svg" x="34" y="42" height="30" width="120"/>
+
+        <rect x="10" y="120" width="196" height="62" rx="3" fill="#FFFFFF" stroke="currentColor" stroke-width="1" stroke-opacity=".28"/>
+        <image href="img/booking.svg" x="34" y="138" height="26" width="148"/>
+
+        <rect x="10" y="214" width="196" height="62" rx="3" fill="#FFFFFF" stroke="currentColor" stroke-width="1" stroke-opacity=".28"/>
+        <text x="108" y="242" text-anchor="middle" font-size="14.5" fill="#2F2F2D">Reserva directa</text>
+        <text x="108" y="261" text-anchor="middle" font-size="11.5" fill="#5B5852">desde vuestra web</text>
+
+        <rect x="348" y="94" width="204" height="114" rx="3" fill="none" stroke="#5F748A" stroke-width="2"/>
+        <text x="450" y="136" text-anchor="middle" font-size="21" fill="#5F748A" font-family="Work Sans, sans-serif">smoobu</text>
+        <text x="450" y="162" text-anchor="middle" font-size="12" fill="currentColor" opacity=".72">un calendario</text>
+        <text x="450" y="180" text-anchor="middle" font-size="12" fill="currentColor" opacity=".72">cuatro casas</text>
+
+        <line x1="206" y1="57"  x2="342" y2="120" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)" marker-start="url(#a1)"/>
+        <line x1="206" y1="151" x2="342" y2="151" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)" marker-start="url(#a1)"/>
+        <line x1="206" y1="245" x2="342" y2="182" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)" marker-start="url(#a1)"/>
+        <text x="274" y="76"  text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">sincroniza</text>
+        <text x="274" y="143" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">sincroniza</text>
+        <text x="274" y="240" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">sincroniza</text>
+
+        <rect x="694" y="94" width="196" height="114" rx="3" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="792" y="134" text-anchor="middle" font-size="15" fill="currentColor">casajable.com</text>
+        <text x="792" y="158" text-anchor="middle" font-size="12" fill="currentColor" opacity=".72">calendario</text>
+        <text x="792" y="176" text-anchor="middle" font-size="12" fill="currentColor" opacity=".72">motor de reserva</text>
+
+        <line x1="552" y1="132" x2="688" y2="132" stroke="#5F748A" stroke-width="1.6" marker-end="url(#a1)"/>
+        <text x="620" y="122" text-anchor="middle" font-size="11" fill="#5F748A">disponibilidad en vivo</text>
+        <line x1="688" y1="172" x2="552" y2="172" stroke="#5F748A" stroke-width="1.6" marker-end="url(#a1)"/>
+        <text x="620" y="192" text-anchor="middle" font-size="11" fill="#5F748A">reserva nueva</text>
+
+        <rect x="694" y="264" width="196" height="60" rx="3" fill="#FFFFFF" stroke="currentColor" stroke-width="1" stroke-opacity=".28"/>
+        <image href="img/stripe.svg" x="754" y="280" height="28" width="76"/>
+        <line x1="792" y1="208" x2="792" y2="258" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
+        <text x="804" y="240" font-size="11" fill="currentColor" opacity=".72">cobro con tarjeta</text>
+        <text x="792" y="344" text-anchor="middle" font-size="11" fill="currentColor" opacity=".62">solo en la reserva directa</text>
+      </svg>
+      <figcaption>
+        Una reserva que entra por cualquier canal bloquea esa fecha en todos los
+        demás. El cobro con tarjeta solo aparece en la reserva directa: Airbnb y
+        Booking.com cobran en sus propias plataformas.
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="houses">
+    <div class="house"><div class="swatch" style="background:var(--nueva)"></div><div class="name">Casa Nueva</div><div class="note">calendario propio</div></div>
+    <div class="house"><div class="swatch" style="background:var(--azul)"></div><div class="name">Casa Azul</div><div class="note">calendario propio</div></div>
+    <div class="house"><div class="swatch" style="background:var(--roja)"></div><div class="name">Casa Roja</div><div class="note">calendario propio</div></div>
+    <div class="house"><div class="swatch" style="background:var(--anne)"></div><div class="name">Casa Anne</div><div class="note">calendario propio</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">El huésped</div><h2>Cómo se reserva, paso a paso</h2></div>
+  <div class="col stack">
+    <p>
+      Esto ya está montado y probado. Las imágenes de abajo son de una copia de
+      prueba de vuestra web, con el sistema funcionando de verdad.
+    </p>
+  </div>
+
+  <div class="scroller">
+    <figure style="margin-top:32px">
+      <svg class="diagram" viewBox="0 0 900 196" role="img"
+           aria-label="Recorrido de una reserva: portada, fechas, casas libres con precio, datos del huésped, pago, y después la fecha se bloquea sola en todos los canales">
+        <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><polygon points="0,0 10,5 0,10" fill="currentColor"/></marker></defs>
+        <rect x="12"  y="34" width="156" height="62" rx="3" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="90"  y="60" text-anchor="middle" font-size="13.5" fill="currentColor">Portada</text>
+        <text x="90"  y="79" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">botón disponibilidad</text>
+        <rect x="190" y="34" width="156" height="62" rx="3" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="268" y="60" text-anchor="middle" font-size="13.5" fill="currentColor">Fechas</text>
+        <text x="268" y="79" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">y nº de personas</text>
+        <rect x="368" y="34" width="156" height="62" rx="3" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="446" y="60" text-anchor="middle" font-size="13.5" fill="currentColor">Casas libres</text>
+        <text x="446" y="79" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">con su precio</text>
+        <rect x="546" y="34" width="156" height="62" rx="3" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="624" y="60" text-anchor="middle" font-size="13.5" fill="currentColor">Datos</text>
+        <text x="624" y="79" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">del huésped</text>
+        <rect x="724" y="34" width="156" height="62" rx="3" fill="none" stroke="#5F748A" stroke-width="2"/>
+        <text x="802" y="60" text-anchor="middle" font-size="13.5" fill="#5F748A">Pago</text>
+        <text x="802" y="79" text-anchor="middle" font-size="11" fill="currentColor" opacity=".72">y confirmación</text>
+        <line x1="171" y1="65" x2="186" y2="65" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+        <line x1="349" y1="65" x2="364" y2="65" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+        <line x1="527" y1="65" x2="542" y2="65" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+        <line x1="705" y1="65" x2="720" y2="65" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
+        <path d="M 802 100 L 802 140 L 90 140 L 90 102" fill="none" stroke="#5F748A" stroke-width="1.6" marker-end="url(#a2)"/>
+        <text x="446" y="162" text-anchor="middle" font-size="12" fill="#5F748A">la fecha se bloquea sola en Airbnb, Booking.com y la web</text>
+      </svg>
+      <figcaption>El último paso no lo hace nadie. Ocurre solo, en segundos.</figcaption>
+    </figure>
+  </div>
+
+  <div class="flow">
+    <div class="step"><div class="n"></div><div><h3>Entra en la web</h3>
+      <p>En la portada hay un botón para comprobar disponibilidad. No hay que buscarlo.</p></div></div>
+    <div class="step"><div class="n"></div><div><h3>Elige fechas y personas</h3>
+      <p>El buscador consulta el calendario real. Si una casa está ocupada, no aparece.</p></div></div>
+    <div class="step"><div class="n"></div><div><h3>Ve las casas libres con su precio</h3>
+      <p>Con el desglose: noches, limpieza y total. Nada de pedir presupuesto y esperar.</p></div></div>
+    <div class="step"><div class="n"></div><div><h3>Deja sus datos</h3>
+      <p>Nombre, contacto y peticiones. Todo queda en la ficha de la reserva dentro de Smoobu.</p></div></div>
+    <div class="step"><div class="n"></div><div><h3>Paga y recibe la confirmación</h3>
+      <p>El cobro se hace en la misma página. El huésped no se va a ningún otro sitio.</p></div></div>
+  </div>
+
+  <div class="figs"><figure><img class="shot" loading="lazy" src="img/_flow1.webp" alt="El buscador vacío"><figcaption>El buscador, tal y como lo encuentra el huésped.</figcaption></figure></div>
+
+  <div class="figs">
+    <figure>
+      <img class="shot" loading="lazy" decoding="async" src="img/datepicker.webp" alt="Calendario desplegado al elegir las fechas">
+      <figcaption>
+        Así se eligen las fechas. El calendario se despliega dentro de la misma
+        página y marca en azul lo que el huésped va seleccionando.
+      </figcaption>
+    </figure>
+  </div>
+
+  <div class="figs">
+    <figure>
+      <img class="shot" loading="lazy" decoding="async" src="img/confirm.webp" alt="Pantalla de reserva confirmada con el desglose del pago">
+      <figcaption>
+        Reserva real completada el 25 de agosto en la copia de prueba: seis noches,
+        tres personas, con el pago inicial y el total. Apareció en Smoobu al instante.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">La web</div><h2>Cómo queda en casajable.com</h2></div>
+  <div class="col stack">
+    <p>
+      El diseño de la web no se toca. Vuestra diseñadora sigue a cargo. Nosotros
+      solo añadimos la parte de reservar, con vuestros mismos colores y tipografías.
+    </p>
+  </div>
+  <div class="figs"><figure>
+    <img class="shot" loading="lazy" decoding="async" src="img/01.webp" alt="Portada de Casa Jable con el botón de disponibilidad">
+    <figcaption>La portada, con el botón para comprobar disponibilidad sobre la fotografía.</figcaption>
+  </figure></div>
+  <div class="figs"><figure>
+    <img class="shot" loading="lazy" decoding="async" src="img/boton.webp" alt="Detalle del botón Check availability sobre la fotografía de la portada">
+    <figcaption>
+      El botón de cerca. Discreto, con vuestra tipografía, y es lo único que se
+      añade a la portada.
+    </figcaption>
+  </figure></div>
+  <div class="figs two">
+    <figure><img class="shot" loading="lazy" decoding="async" src="img/05.webp" alt="Calendario de Casa Azul"><figcaption>Casa Azul. En rosa, las noches ya ocupadas; en blanco, las libres. Es el color que usa Smoobu.</figcaption></figure>
+    <figure><img class="shot" loading="lazy" decoding="async" src="img/06.webp" alt="Calendario de Casa Roja"><figcaption>Casa Roja, el mismo periodo. Las fechas ocupadas son otras, porque cada casa tiene su propio calendario.</figcaption></figure>
+  </div>
+  <div class="figs two">
+    <figure><img class="shot" loading="lazy" decoding="async" src="img/03.webp" alt="Las cuatro casas en la portada"><figcaption>Cada casa lleva a su propia página.</figcaption></figure>
+    <figure><img class="shot" loading="lazy" decoding="async" src="img/09.webp" alt="La web en el móvil"><figcaption>En el móvil, que es desde donde reserva la mayoría.</figcaption></figure>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">La administración</div><h2>Y esto es lo que veis vosotras</h2></div>
+  <div class="col stack">
+    <p>
+      Todo lo anterior es lo que ve el huésped. Por dentro, quien lleva la
+      administración entra en Smoobu y lo tiene todo en la misma pantalla: quién
+      entra hoy, quién sale, qué ha cambiado y si los canales están al día.
+    </p>
+    <p style="color:var(--ink-soft)">
+      Las capturas son de una cuenta real de Smoobu en funcionamiento. Los nombres
+      de los huéspedes van tapados porque no son nuestros para enseñarlos.
+    </p>
+  </div>
+  <div class="figs">
+    <figure>
+      <img class="shot" loading="lazy" decoding="async" src="img/smoobu_home.webp" alt="Panel de inicio de Smoobu con próximas entradas, actividad y estado de los canales">
+      <figcaption>
+        Arriba a la derecha, lo que más importa: <strong>«All channels synced»</strong>,
+        con Airbnb y Booking.com sincronizados. Si algún canal se cayera, se ve aquí
+        antes de que cause una doble reserva.
+      </figcaption>
+    </figure>
+  </div>
+  
+</section>
+
+
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">Transparencia</div><h2>Lo que no está en ese precio</h2></div>
+  <div class="col stack">
+    <p>
+      Estos servicios se contratan a su nombre y se pagan directamente a cada
+      proveedor. <strong>Nosotros no cobramos comisión sobre ninguno de ellos.</strong>
+    </p>
+  </div>
+  <div class="two-col">
+    <div class="card">
+      <h3>Licencia de Smoobu</h3>
+      <p style="font-family:'EB Garamond',Georgia,serif;font-size:26px">A su nombre, tarifa de Smoobu</p>
+      <p style="font-size:14.5px;color:var(--ink-soft)">
+        Plan Standard, las cuatro casas. <strong>sin comisión por
+        reserva</strong>. El precio cambia según el número de unidades. Nuestro importe
+        cubre la configuración, no la licencia.
+      </p>
+    </div>
+    <div class="card plain">
+      <h3>Comisiones de terceros</h3>
+      <div class="ticks">
+        <div class="tick no"><span class="m">·</span><span>Stripe<span class="d">Comisión por transacción, sobre la cuenta que ya tenéis.</span></span></div>
+        <div class="tick no"><span class="m">·</span><span>Airbnb y Booking.com<span class="d">Sus comisiones de canal, exactamente como hasta ahora.</span></span></div>
+        <div class="tick no"><span class="m">·</span><span>Chekin y Beyond Pricing<span class="d">Solo si se contratan las opciones A o B. Tarifa propia de cada proveedor.</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">Ampliaciones</div><h2>Opciones, si las queréis</h2></div>
+  <div class="col stack">
+    <p>
+      No hacen falta para que el sistema funcione. Se contratan sueltas, en
+      cualquier momento y en cualquier combinación.
+    </p>
+  </div>
+  <div class="opts">
+    <div class="opt">
+      <div class="tag">Opción A</div>
+      <h3>Registro de viajeros</h3>
+      <p>
+        Chekin conectado a Smoobu para las cuatro casas. Los datos del viajero se
+        recogen antes de la llegada y se envían solos a SES.HOSPEDAJES. Sustituye
+        el registro manual. Requiere alta y credenciales en vigor.
+      </p>
+      <div class="price" style="font-size:15px;font-family:'Work Sans',sans-serif">Importe en la oferta</div>
+    </div>
+    <div class="opt">
+      <div class="tag">Opción B</div>
+      <h3>Precios dinámicos</h3>
+      <p>
+        Beyond Pricing conectado y configurado casa por casa, con reglas para los
+        huecos de última hora. Hoy esas noches sueltas se quedan sin cubrir. Dos
+        semanas de seguimiento. Los parámetros los decidís vosotros.
+      </p>
+      <div class="price" style="font-size:15px;font-family:'Work Sans',sans-serif">Importe en la oferta</div>
+    </div>
+    <div class="opt">
+      <div class="tag">Opción C</div>
+      <h3>Extras en la reserva directa</h3>
+      <p>
+        Hasta 5 extras cobrados por Stripe: salida tardía, entrada temprana, cesta
+        de bienvenida, limpieza adicional. Solo en casajable.com: Airbnb y
+        Booking.com no permiten vender extras dentro de la reserva.
+      </p>
+      <div class="price" style="font-size:15px;font-family:'Work Sans',sans-serif">Importe en la oferta</div>
+    </div>
+    <div class="opt">
+      <div class="tag">Opción D</div>
+      <h3>Casa o anuncio adicional</h3>
+      <p>El mismo alcance que el paquete básico, para cualquier casa o anuncio que se incorpore más adelante.</p>
+      <div class="price" style="font-size:15px;font-family:'Work Sans',sans-serif">Importe en la oferta</div>
+    </div>
+    <div class="opt">
+      <div class="tag">Opción E</div>
+      <h3>Revisión de anuncios</h3>
+      <p>
+        Auditoría de los cuatro anuncios en Airbnb y Booking.com: título,
+        descripción, orden de las fotos, servicios, políticas y estancia mínima.
+        Informe con las correcciones aplicadas. El posicionamiento afecta a todas
+        las reservas, no solo a las directas.
+      </p>
+      <div class="price" style="font-size:15px;font-family:'Work Sans',sans-serif">Importe en la oferta</div>
+    </div>
+    <div class="opt" style="background:var(--sand)">
+      <div class="tag">Fuera de alcance</div>
+      <h3>Lo que no entra</h3>
+      <div class="ticks">
+        <div class="tick no"><span class="m">·</span><span>Diseño web<span class="d">Vuestra diseñadora sigue a cargo. Integramos la reserva, no tocamos el diseño.</span></span></div>
+        <div class="tick no"><span class="m">·</span><span>Contabilidad y facturación<span class="d">Fuera de esta fase. Se valora después.</span></span></div>
+        <div class="tick no"><span class="m">·</span><span>Todo lo demás<span class="d">Lo no mencionado se presupuesta aparte.</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">Para empezar</div><h2>Qué necesitamos de vosotros</h2></div>
+  <div class="col stack">
+    <p>Nada de esto lleva trabajo por vuestra parte más allá de dar los accesos.</p>
+  </div>
+  <div class="need">
+    <div class="item"><b>Canales</b><span>Accesos a Airbnb y Booking.com.</span></div>
+    <div class="item"><b>Web</b><span>Accesos a WordPress y al dominio casajable.com.</span></div>
+    <div class="item"><b>Stripe</b><span>Acceso a la cuenta que ya tenéis.</span></div>
+    <div class="item"><b>Datos comerciales</b><span>Precios, temporadas, estancias mínimas, normas de la casa y cancelación.</span></div>
+    <div class="item"><b>SES.HOSPEDAJES</b><span>Alta y credenciales, solo si se contrata la opción A.</span></div>
+    <div class="item"><b>Una interlocutora</b><span>Una sola persona de contacto durante la puesta en marcha.</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">Condiciones</div><h2>Plazos y forma de pago</h2></div>
+  <div class="terms">
+    <div class="term"><b>Plazo</b><span>De 2 a 3 semanas desde el último acceso recibido, no antes.</span></div>
+    <div class="term"><b>Pago</b><span>50 % para empezar, 50 % a la entrega. Por transferencia.</span></div>
+    <div class="term"><b>Qué se considera entregado</b><span>Las cuatro casas sincronizadas entre Smoobu, Airbnb, Booking.com y casajable.com, y una reserva de prueba completada.</span></div>
+    <div class="term"><b>Correcciones</b><span>10 días naturales para comunicar defectos, que se corrigen dentro de la ronda incluida.</span></div>
+    <div class="term"><b>Sin cuota mensual</b><span>No hay mantenimiento mensual por nuestra parte.</span></div>
+    <div class="term"><b>Impuestos</b><span>Los importes van sin IGIC (7 %), que se añade en factura.</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">Estado</div><h2>Qué está ya probado</h2></div>
+  <div class="col stack">
+    <p style="color:var(--ink-soft)">
+      Todo lo de abajo está montado sobre una copia de prueba de vuestra web,
+      no sobre la web publicada.
+    </p>
+  </div>
+  <div class="status">
+    <div class="row"><div class="dot on"></div><div class="txt">Calendario por casa<span>Funcionando, con ocupación real</span></div></div>
+    <div class="row"><div class="dot on"></div><div class="txt">Buscador en la web<span>Consulta el calendario real</span></div></div>
+    <div class="row"><div class="dot on"></div><div class="txt">Reserva completa de principio a fin<span>Probada el 25 de agosto, apareció en Smoobu</span></div></div>
+    <div class="row"><div class="dot on"></div><div class="txt">Diseño integrado<span>Respeta la web actual</span></div></div>
+    <div class="row"><div class="dot on"></div><div class="txt">Versión móvil<span>Probada</span></div></div>
+    <div class="row"><div class="dot wait"></div><div class="txt">Cobro con tarjeta por Stripe<span>En verificación</span></div></div>
+  </div>
+</section>
+
+<footer class="col">
+   Las capturas son de una copia de
+  prueba de casajable.com, no de la web publicada. Tenerife Resort Invest SL ·
+  .
+</footer>
+
+</div>
