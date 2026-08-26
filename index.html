@@ -145,6 +145,24 @@ figcaption{font-size:14px;color:var(--ink-soft);max-width:64ch}
 .term b{display:block;font-weight:500;font-size:15.5px;margin-bottom:3px}
 .term span{font-size:14.5px;color:var(--ink-soft)}
 
+
+/* ── ampliaciones, plegadas por defecto ── */
+.adds{border-top:1px solid var(--line);margin-top:34px}
+.add{border-bottom:1px solid var(--line)}
+.add summary{list-style:none;cursor:pointer;padding:22px 2px;display:grid;
+  grid-template-columns:1fr auto;gap:22px;align-items:start}
+.add summary::-webkit-details-marker{display:none}
+.add summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.add .t{font-family:"EB Garamond","Iowan Old Style",Georgia,serif;font-size:22px;display:block}
+.add .one{font-size:14.5px;color:var(--ink-soft);display:block;margin-top:5px;max-width:56ch}
+.add .chev{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);white-space:nowrap;padding-top:9px}
+.add:not([open]) .chev::after{content:"Ver +"}
+.add[open] .chev::after{content:"Cerrar −"}
+.add .body{padding:0 2px 26px;max-width:64ch;display:flex;flex-direction:column;gap:12px}
+.add .body p{font-size:15px;color:var(--ink-soft)}
+.add .body .why{color:var(--ink)}
+
 footer{padding:52px 0 88px;color:var(--ink-soft);font-size:14px}
 </style>
 
@@ -364,6 +382,87 @@ footer{padding:52px 0 88px;color:var(--ink-soft);font-size:14px}
     </figure>
   </div>
 </section>
+
+<section>
+  <div class="sec-head col"><div class="eyebrow">Más adelante</div><h2>Lo que se puede añadir</h2></div>
+  <div class="col stack">
+    <p>
+      Nada de esto hace falta para que el sistema funcione. Se añaden cuando
+      quieras, sueltas y en cualquier orden. Están aquí para que veas qué es
+      posible, no para decidir hoy.
+    </p>
+  </div>
+
+  <div class="adds">
+    <details class="add">
+      <summary>
+        <span><span class="t">Registro de viajeros</span>
+        <span class="one">Los datos del huésped se envían solos al registro obligatorio.</span></span>
+        <span class="chev"></span>
+      </summary>
+      <div class="body">
+        <p class="why">Hoy alguien tiene que recoger los datos de cada huésped y subirlos a mano a SES.HOSPEDAJES, casa por casa.</p>
+        <p>Se conecta Chekin a Smoobu para las cuatro casas. El huésped rellena sus datos antes de llegar y el envío se hace solo. Se prueba sobre una entrada real antes de darlo por bueno.</p>
+        <p>Hace falta que el alta en SES.HOSPEDAJES ya exista y las credenciales estén en vigor.</p>
+      </div>
+    </details>
+
+    <details class="add">
+      <summary>
+        <span><span class="t">Precios que se mueven solos</span>
+        <span class="one">Para que las noches sueltas de última hora no se queden vacías.</span></span>
+        <span class="chev"></span>
+      </summary>
+      <div class="body">
+        <p class="why">Una noche libre entre dos reservas, a tres días vista, hoy se queda sin cubrir. Ese hueco no se recupera nunca.</p>
+        <p>Se conecta Beyond Pricing a Smoobu y se configura casa por casa: precio base, precio mínimo, temporadas y reglas para los huecos de última hora. Dos semanas de seguimiento después.</p>
+        <p>Los límites los pones tú. No se toca un precio que no hayas autorizado.</p>
+      </div>
+    </details>
+
+    <details class="add">
+      <summary>
+        <span><span class="t">Extras en la reserva directa</span>
+        <span class="one">Salida tardía, entrada temprana, cesta de bienvenida.</span></span>
+        <span class="chev"></span>
+      </summary>
+      <div class="body">
+        <p class="why">Son ingresos que solo existen en tu propio canal: Airbnb y Booking.com no permiten vender extras dentro de la reserva, obligan a que el pago pase por ellos.</p>
+        <p>Hasta cinco extras dentro de la reserva de casajable.com, cobrados con la misma tarjeta. El huésped los añade al reservar, sin escribir un correo.</p>
+      </div>
+    </details>
+
+    <details class="add">
+      <summary>
+        <span><span class="t">Una casa más</span>
+        <span class="one">Si mañana entra otra vivienda o un anuncio nuevo.</span></span>
+        <span class="chev"></span>
+      </summary>
+      <div class="body">
+        <p>El mismo alcance que las cuatro actuales: alta en Smoobu, canales conectados en los dos sentidos, calendario y reserva en la web, precios y reglas configurados.</p>
+      </div>
+    </details>
+
+    <details class="add">
+      <summary>
+        <span><span class="t">Revisión de los anuncios</span>
+        <span class="one">Título, fotos, servicios y políticas en Airbnb y Booking.com.</span></span>
+        <span class="chev"></span>
+      </summary>
+      <div class="body">
+        <p class="why">El posicionamiento en esas plataformas afecta a todas las reservas, no solo a las directas. Un anuncio mal ordenado cuesta visitas todos los días.</p>
+        <p>Auditoría de los cuatro anuncios: título, descripción, orden de las fotografías, servicios, políticas de cancelación y estancia mínima, y los ajustes que pesan en el posicionamiento. Se entrega un informe con lo que se ha corregido.</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="col" style="margin-top:30px">
+    <p style="font-size:14.5px;color:var(--ink-soft)">
+      Los importes de cada una están en la oferta.
+    </p>
+  </div>
+</section>
+
 
 
 
